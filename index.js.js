@@ -114,3 +114,40 @@ function playGame(){
   }
 
 }
+
+function validateDecisionContinue(){
+  let decision = prompt("Choose if you wanto to continue playing? Select Y/N : ");
+  decision = decision.toUpperCase();
+  if(decision ===  "Y"){
+      return true;
+  }else if(decision === "N"){
+      return false
+  }else{
+      validateDecisionContinue();
+  }
+}
+
+function validatePlayer(idPlayer){
+  return players.some(player => player.id === idPlayer)
+}
+
+function searchPlayer(idPlayer){
+  let player = players.filter(player => player.id === idPlayer);
+  return player[0];
+}
+
+function drawCard(){
+  let newCardIndex = Math.floor(Math.random() * cardDeck.cards.length);
+  let newCard = cardDeck.cards[newCardIndex];
+  return newCard;
+}
+
+function drawCardGame(){
+  let cardGame = drawCard();
+
+  if (gameCards.some(card => card.name === cardGame.name)) {
+      drawCardGame();
+  }
+  gameCards.push(cardGame);
+  return cardGame;
+}

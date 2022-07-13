@@ -1,8 +1,12 @@
 const Player = require('./src/player');
 
 let players = [];
+let gameCards = [];
 let option = 0;
+let cardDeck = new CardDeck();
+cardDeck.createCardDeck();
 let score = 0;
+let aceDecisionPlayer;
 
 function mainMenu(){
 
@@ -77,4 +81,36 @@ function startGame(){
   }else{
       console.log("Caution!!! The id entered is not registered. go to option 1 to create a new player and then come back.\n")
   }
+}
+
+function playGame(){
+
+  gameCards = [];
+  score = 0;
+  let gameStatus = "Continue";
+
+  console.log("Starting New Game\n")
+
+  do {
+      let cardGame = drawCardGame();
+      console.log("You got the card: " + cardGame.name + " of " + cardGame.suit);
+      if (cardGame.name === "Ace") {
+          score += Number(validateAceDecision());
+      }
+      score += cardGame.value;
+      console.log("New score is: " + score);
+      gameStatus = validateScore(score);
+      if (gameStatus === "Continue") {
+          console.log("\nNext card ")
+      }
+  } while (gameStatus === "Continue" );
+
+  if (gameStatus === "win") {
+      console.log("\n Niceeee! you win! Your Prize for this game is 1,000 USD.\n")
+      return gameStatus;
+  }else{
+      console.log("\n You lost, good luck next time :(\n")
+      return gameStatus;
+  }
+
 }

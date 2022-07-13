@@ -2,6 +2,7 @@ const Player = require('./src/player');
 
 let players = [];
 let option = 0;
+let score = 0;
 
 function mainMenu(){
 
@@ -50,4 +51,30 @@ function createPlayer(){
   players.push(newPlayer);
 
   console.log("\nNow You are a Player, Good Luck!\n")
+}
+
+function startGame(){
+  let idPlayer = prompt('Please enter player ID to start the game: ');
+  let decision = true;
+
+  if (validatePlayer(idPlayer)) {
+      let player = searchPlayer(idPlayer);
+      console.log("\nWellcome " + player.name + "Good Luck in your game\n");
+
+      player.prize = 0;
+
+      do {
+          let gameResult = playGame();
+          if (gameResult === "You win") {
+              player.prize += 1000;
+              decision = validateDecisionContinue();
+          }else{
+              decision = false;
+          }
+          
+      } while (decision);
+      console.log("\nGame ended. Total cash: " + player.prize + " USD." );
+  }else{
+      console.log("Caution!!! The id entered is not registered. go to option 1 to create a new player and then come back.\n")
+  }
 }

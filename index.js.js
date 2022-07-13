@@ -1,3 +1,6 @@
+const Player = require('./src/player');
+
+let players = [];
 let option = 0;
 
 function mainMenu(){
@@ -33,4 +36,18 @@ function options(userOption){
   };
 
   console.log("///////////////////");
+}
+
+function createPlayer(){
+  let idPlayer = prompt('Player ID: ');
+  let playerName = prompt('Player Name');
+
+  let newPlayer = new Player({
+      id: idPlayer,
+      name: playerName,
+      prize: 0
+  });
+  players.push(newPlayer);
+
+  console.log("\nNow You are a Player, Good Luck!\n")
 }
